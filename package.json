@@ -1,0 +1,18 @@
+{
+  "name": "assignment-3",
+  "version": "1.0.0",
+  "description": "This contains code for backend apis for a live train running status software",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "author": "sumit.panwar@kiwitech.com",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "validator": "^13.9.0"
+  }
+}
