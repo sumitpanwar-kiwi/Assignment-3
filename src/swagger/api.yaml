@@ -1,0 +1,186 @@
+swagger : "2.0"
+info :
+  title: 'Swagger UI for Live training running status'
+  description : 'This is the swagger UI made to give the live train running status system a UI look.'
+  version : '1.0'
+  contact :
+    email : 'sumit.panwar@kiwitech.com'
+  servers :
+    -url : 'http://localhost:5000/'
+    description : 'This is my local server'
+
+schemes : ['http','https']
+
+securityDefinitions:
+  authorization:
+    type: apiKey
+    name: authorization
+    in: header
+    description: Requests should pass an authorization header.
+
+security: 
+ - authorization: []
+
+paths:
+  /api/user/add:
+    post:
+      tags:
+        - user
+      summary: 'Register user'
+      description: 'This route is to register new user to the site'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: user
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+            phoneNumber:
+              type: string
+      responses:
+        201:
+          description: 'User created'
+        400:
+          description: 'Error while creating user'
+  
+  /api/user/profile:
+    get:
+      tags:
+        - user
+      summary: 'Viewing profile'
+      description: 'This route is for user for viewing their own profile'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 'Ok'
+        401:
+          description: 'Unauthorized'
+  
+  /api/user/update:
+    put:
+      tags:
+        - user
+      summary: 'Update profile'
+      description: 'This route if for user to update their own profile'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: user
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            phoneNumber:
+              type: string
+      responses:
+        200:
+          description: 'Update successfull'
+        400:
+          description: 'Error while updating profile'
+        401:
+          description: 'Unauthorized'
+  
+  /api/user/delete:
+    delete:
+      tags:
+        - user
+      summary: 'Delete profile'
+      description: 'This route will delete the loggedin user'
+      responses:
+        200:
+          description: 'Update successfull'
+        401:
+          description: 'Unauthorized'
+  
+  /api/user/status/{code}:
+    get:
+      tags:
+        - user
+      summary: 'Train running status'
+      description: 'This route will give train running status to the user which he haved subscribed'
+      parameters:
+        - name: code
+          in : path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: 'Ok'
+        400:
+          description: 'Bad request'
+        401:
+          description: 'Unauthorized'
+  
+  /api/user/login:
+    post:
+      tags:
+        - user
+      summary: 'Login route'
+      description: 'Login route for the futher routes access'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: user
+        schema:
+          type: object
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+      responses:
+        200:
+          description: 'Ok'
+        400:
+          description: 'Wrong credentials'
+  
+  /api/train/add:
+    post:
+      tags:
+        - train
+      summary: 'Add train'
+      description: 'This route is to add new trains and it is accessible by admin/sub-admin only'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: train
+        schema:
+          type: object
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+            route:
+              type: array
+              items:
+                type: string
+      responses:
+        201:
+          description: 'Train added'
+        400:
+          description: 'Error while adding train'
+        401:
+          description: 'Only admin/sub-admin accessible route'
+

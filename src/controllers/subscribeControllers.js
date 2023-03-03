@@ -5,7 +5,6 @@ const {subscribeEmail} = require('../emails/mails');
 
 const statusCode = require('../constants/httpStatusCodes');
 
-
 const subscribe = async(req, res)=>{
     try {
         const {code} = req.body;
