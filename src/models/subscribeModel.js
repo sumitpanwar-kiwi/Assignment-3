@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const bookingSchema = new mongoose.Schema({
+const subscribeSchema = new mongoose.Schema({
     user : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'users'
@@ -9,13 +9,10 @@ const bookingSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'trains'
     },
-    boardingStation :{
-        type : String,
-    },
-    bookingDate :{
+    subscribeDate :{
         type : Date,
         default : new Date(),
     }    
 });
 
-module.exports = mongoose.model('bookings', bookingSchema);
+module.exports = mongoose.model('subscribe', subscribeSchema);
