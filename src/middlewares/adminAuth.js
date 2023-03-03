@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/userModel');
 
+const statusCode = require('../constants/httpStatusCodes');
+
 const auth = async(req, res, next)=>{
     try {
         const token = req.header('authorization').split(' ')[1];
@@ -22,7 +24,7 @@ const auth = async(req, res, next)=>{
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).send({error : 'NOT_AUTHENTICATED'});
+        res.status(statusCode.UNAUTHORIZED).send({error : 'NOT_AUTHENTICATED'});
     }
 };
 
