@@ -16,10 +16,6 @@ const trainSchema = new mongoose.Schema({
         type : Array,
         required : true
     },
-    routeTiming :{
-        type : Array,
-        required : true
-    },
     started : {
         type :Boolean,
         default : false
