@@ -71,7 +71,7 @@ paths:
       tags:
         - user
       summary: 'Update profile'
-      description: 'This route if for user to update their own profile'
+      description: 'This route is for user to update their own profile'
       produces:
         - application/json
       consumes:
@@ -184,3 +184,93 @@ paths:
         401:
           description: 'Only admin/sub-admin accessible route'
 
+  /api/train/all:
+    get:
+      tags:
+        - train
+      summary: 'All train details'
+      description: 'This route is to view all train details and it is accessible by admin/sub-admin only'
+      produces:
+        - application/json
+      responses:
+        200:
+          description: 'All trains details'
+        400:
+          description: 'Error while fetching trains details'
+        401:
+          description: 'Only admin/sub-admin accessible route'
+  
+  /api/train/update/{code}:
+    put:
+      tags:
+        - train
+      summary: 'Update train station'
+      description: 'Admin/sub-admin will update the train station and an automated email will be sent to the subscribed users'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - name: code
+        in : path
+        required: true
+        schema:
+          type: string
+      - in: body
+        name: train
+        schema:
+          type: object
+          properties:
+            station:
+              type: string
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while updating station'
+          401:
+            description: 'Only admin/sub-admin accessible route'
+
+  /api/train/info/{code}:
+    get:
+      tags:
+        - train
+      summary: 'Any train info'
+      description: 'This route will give the details of any train'
+      parameters:
+      - name: code
+        in : path
+        required: true
+        schema:
+          type: string
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while getting train information'
+
+  /api/subscribed/subscribe:
+    post:
+      tags:
+        - subscribe
+      summary: 'To subscribe a train for its details'
+      description: 'This user accesible route will be used by user to subscribe for a particular train'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - in: body
+        name: train
+        schema:
+          type: object
+          properties:
+            code:
+              type: string
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while subscribing a train'
+          401:
+            description: 'Unauthorized'
