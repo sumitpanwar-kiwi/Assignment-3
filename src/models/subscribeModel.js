@@ -12,6 +12,10 @@ const subscribeSchema = new mongoose.Schema({
     subscribeDate :{
         type : Date,
         default : new Date(),
+    },
+    active:{
+        type : Boolean,
+        default : true,
     }    
 });
 

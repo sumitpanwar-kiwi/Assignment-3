@@ -104,7 +104,7 @@ const updateStation = async(req, res)=>{
         
         await train.save();
 
-        const subscribes = await Subscribe.find({train : train._id});
+        const subscribes = await Subscribe.find({train : train._id, active : true});
 
         const emailToSent = [];
 
@@ -113,9 +113,17 @@ const updateStation = async(req, res)=>{
             emailToSent[i] = user.email;
         }
 
-        if(emailToSent.length >0)
+        if(emailToSent.length >0){
             stationUpdate(emailToSent, train)
 
+            if(station == train.route[train.route.length -1]){
+                for(let i=0; i<subscribes.length ; i++){
+                    subscribes[i].active = false;
+                    await subscribes[i].save();
+                }
+            }
+        }
+        
         res.status(statusCode.OK).json({
             status : true,
             message : 'Station updated successfully'

@@ -18,7 +18,7 @@ const subscribe = async(req, res)=>{
             throw new Error('Invalid train code');
         }
 
-        if(await Subscribe.findOne({user : req.user._id, train : train._id})){
+        if(await Subscribe.findOne({user : req.user._id, train : train._id, active : true})){
             throw new Error('User have already subscribed for this train')
         }
 

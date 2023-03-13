@@ -274,3 +274,74 @@ paths:
             description: 'Error while subscribing a train'
           401:
             description: 'Unauthorized'
+  
+  /api/admin/user/{id}:
+    get:
+      tags:
+        - admin
+      summary: 'To get a user detail'
+      description: 'Admin will get information of any user through this route'
+      parameters:
+      - name: id
+        in : path
+        required: true
+        schema:
+          type: string
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while getting user information'
+          401:
+            description: 'Only admin/sub-admin accessible route'
+
+  /api/admin/users:
+    get:
+      tags:
+        - admin
+      summary: 'All users details'
+      description: 'A route for admin to get all users details'
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while getting users information'
+          401:
+            description: 'Only admin/sub-admin accessible route'
+  
+  /api/admin/userUpdate/{id}:
+    put:
+      tags:
+        - admin
+      summary: 'Updating a user'
+      description : 'A route for admin to update any user. This route can be used to create a sub-admin'
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      parameters:
+      - name: id
+        in : path
+        required: true
+        schema:
+          type: string
+      - in: body
+        name: user
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            phoneNumber:
+              type: string
+            role:
+              type: string
+            active:
+              type: boolean
+      responses:
+          200:
+            description: 'OK'
+          400:
+            description: 'Error while updating user'
+          401:
+            description: 'Only admin/sub-admin accessible route'
