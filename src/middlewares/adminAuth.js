@@ -20,6 +20,10 @@ const auth = async(req, res, next)=>{
             return res.status(401).send({error : 'Only admin or sub-admin can access these routes'})
         }
 
+        if(!user.active){
+            return res.status(401).send({error : 'Not active'});
+        }
+
         req.id = user._id;
         req.user = user;
         next();
